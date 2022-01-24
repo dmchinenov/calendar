@@ -1,0 +1,16 @@
+{
+  "ru" : {
+    "namesMonths": ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+    "namesDaysOfWeek": ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
+    "dateLabel": "Выберите дату",
+    "langLabel": "Выберите язык",
+    "inputDateLabel": "Укажите дату в формате Год-Месяц-День"
+  },
+  "en" : {
+    "namesMonths" :["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "namesDaysOfWeek" :["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+    "dateLabel": "Select a date",
+    "langLabel": "Select a lang",
+    "inputDateLabel": "Enter the date in Year-Month-Day format"
+  }
+}
