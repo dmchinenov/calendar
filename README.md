@@ -1,24 +1,12 @@
-# calendar
+# Simple vue calendar (date-picker)
 
-## Project setup
-```
-npm install
-```
+- Vue
+- Moment.js
 
-### Compiles and hot-reloads for development
+## Installation
+```sh
+git clone
+npm i
+npm run serve / npm run build
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![alt text](https://github.com/dmchinenov/simple-calendar-app/blob/master/src/assets/screen-readme.webp)
