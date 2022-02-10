@@ -4,7 +4,7 @@
 - Moment.js
 ## Demo
 
-https://dmchinenov.github.io/traffic-lights/
+https://dmchinenov.github.io/calendar/
 ## Installation
 ```sh
 git clone
