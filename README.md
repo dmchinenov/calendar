@@ -1,7 +1,9 @@
-# Simple vue calendar (date-picker)
+# Calendar (Date-picker)
 
 - Vue
+- SCSS
 - Moment.js
+
 ## Demo
 
 https://dmchinenov.github.io/calendar/
