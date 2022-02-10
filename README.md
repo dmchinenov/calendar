@@ -2,7 +2,9 @@
 
 - Vue
 - Moment.js
+## Demo
 
+https://dmchinenov.github.io/traffic-lights/
 ## Installation
 ```sh
 git clone
