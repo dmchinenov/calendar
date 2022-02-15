@@ -30,8 +30,28 @@
           day.disabled ? 'calendar__day-month_hidden' : '',
           day.active ? 'calendar__day-month_active' : '',
         ]"
-        @click="setDate(day.value)">
-        {{ day.value }}
+        @click="setDate(day.value)"
+        @mouseenter="changeEventDisplay(day)"
+        @mouseleave="changeEventDisplay(day)">
+        <div class="calendar__day-events">
+          <div
+            v-for="event in day.events"
+            :key="event.id"
+            :style="{background: badgeColor[event.type]}"
+            class="calendar__day-event" />
+        </div>
+        <span> {{ day.value }}</span>
+        <div
+          v-if="day.showEvent && day.events"
+          class="calendar__event-preview">
+          <div
+            v-for="event in day.events"
+            :key="event.id"
+            class="calendar__event-name"
+            :style="{background: event.type}">
+            {{ event.event }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -51,11 +71,16 @@ export default {
       type: String,
       default: '',
     },
+    events: {
+      type: Array,
+      default: null,
+    },
   },
   data: () => ({
     localization: null,
     date: null,
     daysList: null,
+    showEvent: false,
   }),
   created() {
     this.localization = localization;
@@ -86,11 +111,14 @@ export default {
 
       for (let i = 1; i <= this.date.daysInMonth(); i++) {
         const fulldate = moment(this.date).set('date', i).format('DD-MM-YYYY');
+        const events = this.events ? this.events.filter((el) => el.date === fulldate) : false;
         const obj = {
           value: i,
           disabled: false,
           fulldate,
           active: fulldate === this.selectedDate,
+          events: events.length > 0 ? events : false,
+          showEvent: false,
         };
         daysMonth.push(obj);
       }
@@ -122,6 +150,10 @@ export default {
         : moment(this.date).subtract(1, 'M');
       this.createDaysList();
     },
+    changeEventDisplay(day) {
+      const { showEvent } = this.daysList.find((el) => el.value === day.value);
+      this.daysList.find((el) => el.value === day.value).showEvent = !showEvent;
+    },
   },
   computed: {
     namesDaysOfWeek() {
@@ -130,6 +162,13 @@ export default {
     nameOfCurrentMonth() {
       const numberOfCurrentMonth = moment(this.date).format('M') - 1;
       return `${this.localization[this.lang].namesMonths[numberOfCurrentMonth].toUpperCase()} ${moment(this.date).format('YYYY')}`;
+    },
+    badgeColor() {
+      return {
+        yellow: 'yellow',
+        green: 'green',
+        red: 'red',
+      };
     },
   },
   watch: {
@@ -154,7 +193,6 @@ export default {
 <style lang="scss">
 .calendar {
   background: $onyx;
-  height: 320px;
   border-radius: 5px;
   box-shadow: 0px 2px 7px 0px rgb(50 50 50 / 75%);
   padding: 30px 40px;
@@ -176,36 +214,76 @@ export default {
 .calendar__days-week {
   display: flex;
   align-items: center;
-  padding: 20px 0px 0px;
+  padding: 20px 0px 10px;
 }
 
 .calendar__day-week {
   color: $redorange;
   font-weight: 300;
-  width: 40px;
+  width: 80px;
+  margin: 0px 5px;
   text-align: center;
 }
 
 .calendar__days-month {
   display: flex;
   flex-wrap: wrap;
-  width: 280px;
+  width: calc(80px + 10px) * 7;
 }
 
 .calendar__day-month {
   font-weight: 300;
   color: $platinum;
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   box-sizing: border-box;
+  position: relative;
+  border: 1px solid rgba(white, 0.1);
+  margin: 5px;
 }
 
 .calendar__day-month:hover {
   border: 1px solid rgba($redorange, 0.5);
+}
+
+.calendar__day-events {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.calendar__day-event {
+  width: 8px;
+  height: 8px;
+  margin: 5px;
+  background: white;
+  border-radius: 10px;
+}
+
+.calendar__event-preview {
+  position: absolute;
+  min-width: 200px;
+  background: white;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  display: block;
+  top: 0px;
+  left: 85px;
+  z-index: 1;
+  max-height: 200px;
+  overflow: hidden
+}
+
+.calendar__event-name {
+  color: $onyx;
+  display: block;
+  margin: 5px;
+  padding: 2px;
 }
 
 .calendar__arrow {
