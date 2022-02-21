@@ -5,7 +5,6 @@
       <Calendar
         :lang="selectedLang"
         :handler-date="handlerDate"
-        :events="events"
         @setDate="setDate" />
       <span class="main__label">{{ labelInput }}</span>
       <input
@@ -54,9 +53,6 @@ export default {
     },
   },
   computed: {
-    events() {
-      return this.$store.getters.getEvents;
-    },
     appLangs() {
       return [
         {
